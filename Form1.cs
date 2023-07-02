@@ -21,11 +21,17 @@ namespace Arrays_Recursividad
         private void btn_Agregar_Click(object sender, EventArgs e)
         {
             int indice = listB_datos.Items.Count;
-            datos[indice] = txt_dato.Text;
-            listB_datos.Items.Add(datos[indice]);
-            if (indice == 9 )
-                btn_Agregar.Enabled = false;
-            txt_dato.Text = "";
+            if (txt_dato.Text != "")
+            {
+                datos[indice] = txt_dato.Text;
+                listB_datos.Items.Add(datos[indice]);
+                if (indice == 9)
+                    btn_Agregar.Enabled = false;
+                txt_dato.Text = "";
+            } else
+            {
+                MessageBox.Show("¡Error! Debe completar el cuadro de texto antes de realizar esta accion", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         // Funcion para permitir solo letras en el textbox
         private void txt_dato_KeyPress(object sender, KeyPressEventArgs e)
@@ -38,9 +44,15 @@ namespace Arrays_Recursividad
         // Boton para ordenar
         private void btn_Ordenar_Click(object sender, EventArgs e)
         {
-            OrdenarAscendente(datos, datos.Length);
-            listB_datos.Items.Clear();
-            listB_datos.Items.AddRange(datos);
+            if (listB_datos.Items.Count == 10)
+            {
+                OrdenarAscendente(datos, datos.Length);
+                listB_datos.Items.Clear();
+                listB_datos.Items.AddRange(datos);
+            } else
+            {
+                MessageBox.Show("¡Error! Debe llenar el array con 10 datos antes de poder realizar esta accion", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         // Funcion que permite ordenar de forma ascendente utilizando el metodo de recursividad
         void OrdenarAscendente(string[] array, int n)
